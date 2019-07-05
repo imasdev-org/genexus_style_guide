@@ -1,10 +1,10 @@
 # Sincrum - Guia de estilo para el desarrollo en GeneXus
 por [Daniel Monza](https://uy.linkedin.com/in/daniel-monza-62515112)
-branch mantenido x [Laura Aguiar] para imasdev.
+branch mantenido x [Laura Aguiar] (https://www.linkedin.com/in/laura-aguiar-zaffaroni/) para [imasdev](http://www.imasdev.com).
 
 [![Licencia Creative Commons](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
 
-Por correcciones o mejoras, pueden utilizar los [issues de github](https://github.com/sincrum/genexus/issues) o enviarlas por email a [info@sincrum.com](mailto:info@sincrum.com).
+Por correcciones o mejoras, pueden utilizar los [issues de github](https://github.com/laguiarz/genexus/issues).
 
 ## Objetivos
 La presente guía se realizó buscando los siguientes objetivos:
@@ -39,10 +39,10 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    Proc: CliCre
+    Proc: InsCus
 
     // bien
-    Proc: ClienteCrear
+    Proc: InsertCustomer
     ```
 
   <a name="naming--PascalCase"></a><a name="1.2"></a>
@@ -50,10 +50,10 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    clientecrear
+    insertcustomer
 
     // bien
-    ClienteCrear
+    InsertCustomer
     ```
 
   <a name="naming--leading-underscore"></a><a name="1.3"></a>
@@ -62,45 +62,46 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    &_CliNom = "John Doe"
-    &CliNom_ = "John Doe"
-    Proc: _ClienteCrear
+    &_CusName = "John Doe"
+    &CusName_ = "John Doe"
+    Proc: _InsertCustomer
 
     // bien
-    &CliNom = "John Doe"
+    &CustomerName = "John Doe"
     ```
 
   <a name="naming-enums"></a><a name="1.4"></a>
-  - [1.4](#naming-enums) Nombrar los dominios enumerados sin abreviar, comenzando con la entidad en singular y siguiendo con el calificador enumerado también en singular. Los valores enumerados también se deben especificar en singular.
+  - [1.4](#naming-enums) Nombrar los dominios enumerados sin abreviar, comenzando con la entidad en singular y siguiendo con el calificador enumerado también en singular. Los valores enumerados también se deben especificar en singular. Es importante que no tenga el mismo nombre que un atributo, por lo tanto si queremos capturar tipos de documento, necesitamos especificar un poco mas la categorizacion para no tener un dominio DocumentType y un atributo DocumentType. Se podria por ejemplo llamar al dominio OrderType (sale order, purchase order) y al atributo DocumentOrderType
 	> Esto es para facilitar la definición de atributos y variables basadas en un dominio (GeneXus lo hará automáticamente).
 
     ```javascript
     // mal
-    DocumentosTipo
-    DocumentosTipos
-    DocTipos
+    TypeOrder
+    OrderTypes
+	DocumentType si tenemos un atributo DocumentType 
 
     // bien
-    DocumentoTipo { Venta, Compra, etc}
-    DocumentoModo { Credito, Débito}
+    OrderType { Sale, Purchase, etc}   - y el atributo seria DocumentOrderType
     ```
 
   <a name="naming-procs"></a><a name="1.5"></a>
-  - [1.5](#naming-procs) Nombrar procedimientos relacionados mediante Entidad + Atributo(depende el caso) + Complemento + Acción.
-	> Esto permite agrupar los objetos de la misma entidad en la selección de objetos entre otros. Algunas acciones típicas son Get, Set, Load (para SDT), Insert, Utpdate, Delete, etc. La diferencia entre Set y Update es que Set refiere a un atributo y Update a una entidad.
+  - [1.5](#naming-procs) Nombrar procedimientos relacionados mediante Acción Entidad + Atributo(depende el caso) + Complemento.
+	> Algunas acciones típicas son Get, Set, Load (para SDT), Insert, Update, Delete, etc. La diferencia entre Set y Update es que Set refiere a un atributo y Update a una entidad.
 
     ```javascript
     // mal
-    CreCli
-    UpsertCliente
-    FechaCliente
+      CustomerInsert
+      Customerpsert
+    
 
     // bien
-    ClienteUpsert
-	ClienteEliminar
-    ClienteFechaModificadoGet
-    ClienteFechaModificadoSet
-	DocumentoRecalculo
+        InsertCustomer
+	UpsertCustomer
+	DeleteCustomer
+        GetCustomerName
+        SetCustomerName
+	RecalcDiscount
+	DoCheckout
 	```
 
   <a name="naming-gik"></a><a name="1.6"></a>
@@ -109,14 +110,14 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    CreCliFch
-    FechaCreadoCliente
+    InsCusDte
+    DateInsertCustomer
 
     // bien
-    CliFchCre
+    CusInsDte
 
     // mejor
-    ClienteFechaCreado
+    CustomerInsertDate
 	```
 
   <a name="naming-trns"></a><a name="1.7"></a>
@@ -125,12 +126,12 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    Trn:Articulos
-    Trn:Clientes
+    Trn:Products
+    Trn:Customers
 
     // bien
-    Trn:Cliente
-    Trn:Articulo
+    Trn:Product
+    Trn:Customer
 	```
 
 **[Volver al inicio](#tabla-de-contenidos)**
@@ -142,18 +143,18 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 	 ```javascript
     // mal
-    if &DocumentoTipo = DocumentoTipos.Venta
-    msg( "Venta")
+    if &DocumentOrderType = OrderType.Sale
+    msg( "Sale")
     endif
 
     // mal
-    if &DocumentoTipo = DocumentoTipo.Venta
-    		msg( "Venta")
+    if &DocumentOrderType = OrderType.Sale
+    		msg( "Sale")
     endif
 
     // bien
-    if &DocumentoTipo = DocumentoTipo.Venta
-        msg( "Venta")
+    if &DocumentOrderType = OrderType.Sale
+        msg( "Sale")
     endif
     ```
 
@@ -162,80 +163,37 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 	 ```javascript
     // mal
-    for each
-    where DocumentoTipo = DocumentoTipo.Venta
+    for each Document
+    where DocumentOrderType = OrderType.Sale
     ...
     endfor
 
     // mal
-    for each
-    defined by ClienteNombre
+    for each Document
+    defined by DocumentOrderType
     ...
     endfor
 
     // bien
-    for each
-        where DocumentoTipo = DocumentoTipo.Venta
+    for each Document
+        where DocumentOrderType = OrderType.Sale
 
         ...
     endfor
     ```
-  <a name="whitespace-newline"></a><a name="2.3"></a>
-  - [2.3](#whitespace-newline) Si en un [for each](http://wiki.genexus.com/commwiki/servlet/wiki?24744,For%20Each%20command) se especifican where, defined by ú otros, dejar una línea en blanco antes del código.
-
-	```javascript
-    // mal
-    for each
-       where DocumentoTipo = DocumentoTipo.Venta
-       if DocTot > LimCreMto
-          ...
-       endif
-    endfor
-
-    // mal
-    for each
-       defined by ClienteNombre
-       for each Documentos
-          ...
-       endfor
-    endfor
-
-    // bien
-    for each
-       where DocumentoTipo = DocumentoTipos.Venta
-
-       if DocTot > LimCreMto
-          ...
-       endif
-    endfor
-
-    // bien
-    for each
-       defined by ClienteNombre
-
-       for each Documentos
-          ...
-       endfor
-    endfor
-	```
-
+ 
   <a name="whitespace-parms"></a><a name="2.4"></a>
-  - [2.4](#whitespace-parms) Dejar un espacio antes de cada parámetro.
+  - [2.4](#whitespace-parms) Dejar un espacio entre parámetros.
 
 	> Hace a la sentencia más sencilla de leer.
 
 	 ```javascript
     // mal
-    parm(in:PaiId,out:&PaiNom);
+    parm(in:CountryId,out:&CountryName);
 
     // bien
-    parm( in:PaiId, out:&PaiNom);
+    parm(in:CountryId, out:&CountryName);
 
-    // mal
-    &Fecha = ymdtod(2017,01,01)
-
-    // bien
-    &Fecha = ymdtod( 2017, 01, 01)
     ```
 
 **[Volver al inicio](#tabla-de-contenidos)**
@@ -260,12 +218,12 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 	```javascript
 	// mal
-	MovimientoCuenta.Credito 1
-	MovimientoCuenta.Debito  2
+	AccountTransaction.Credit 1
+	AccountTransaction.Debit  2
 
 	// bien
-	MovimientoCuenta.Credito "CRE"
-	MovimientoCuenta.Debito  "DEB"
+	AccountTransaction.Credit "CRE"
+	AccountTransaction.Debit  "DEB"
 	```
 
   <a name="enums-default"></a><a name="3.3"></a>
@@ -274,12 +232,12 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 	```javascript
 	// mal
-	ModoLectura.Normal     ""
-	ModoLectura.Secuencial "S"
+	ReadMode.Normal     ""
+	ReadMode.Sequential "S"
 
 	// bien
-	ModoLectura.Normal     "N"
-	ModoLectura.Secuencial "S"
+	ReadMode.Normal     "N"
+	ReadMode.Sequential "S"
 	```
 
 **[Volver al inicio](#tabla-de-contenidos)**
@@ -290,20 +248,20 @@ La presente guía se realizó buscando los siguientes objetivos:
     > Queda claro que se está trabajando con un nuevo item.
 
     ```javascript
-    // &Cliente SDT:Cliente
-    // &Clientes lista de SDT:Cliente
+    // &Customer SDT:Customer
+    // &Customers lista de SDT:Customer
 
     // mal
-    for each Clientes
-       &Cliente.CliNom = CliNom
-       &Clientes.Add( &Cliente.Clone())
+    for each Customer
+       &CustomerSDT.CustomerName = CustomerName
+       &CustomerSDTCollection.Add( &CustomerSDT.Clone () )
     endfor
 
     // bien
-    for each Clientes
-       &Cliente = new()
-       &Cliente.CliNom = CliNom
-       &Clientes.Add( &Cliente)
+    for each Customer
+       &CustomerSDT = new()
+       &CustomerSDT.CustomerName = CustomerName
+       &CustomerSDTCollection.Add( &CustomerSDT)
     endfor
     ```
   <a name="sdt-list"></a><a name="4.1"></a>
@@ -312,13 +270,13 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    SDT:Clientes : Lista
-    	ClienteItem
-        	CliNom
+    SDT:Customers : Lista
+    	CustomerItem
+        	CustomerName
 
     // bien
-    SDT:Cliente
-       	CliNom
+    SDT:Customer
+       	CustomerName
     ```
 
 **[Volver al inicio](#tabla-de-contenidos)**
@@ -331,10 +289,10 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    &Msg = "El cliente Nro." + &CliId.ToString() + " se llama " + &CliNom
+    &Msg = "El cliente Nro." + &CustomerId.ToString() + " se llama " + &CustomerName
 
     // bien
-    &Msg = format( "El cliente Nro. %1 se llama %2", &CliId.ToString(), &CliNom)
+    &Msg = format( "El cliente Nro. %1 se llama %2", &CustomerId.ToString().Trim(), &CustomerName.Trim())
     ```
 
 	Esto soluciona la traducción según contexto. Por ejemplo,
@@ -366,10 +324,10 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    &ParVal = ParamGet( "GLOBAL ENCRYPT KEY")
+    &ParVal = GetParameter( "GLOBAL ENCRYPT KEY")
 
     // bien
-    &ParVal = ParamGet( !"GLOBAL ENCRYPT KEY")
+    &ParVal = GetParameter( !"GLOBAL ENCRYPT KEY")
     ```
   <a name="strings-quotation"></a><a name="5.3"></a>
   - [5.3](#strings-trans) Utilizar comilla doble por defecto.
@@ -392,22 +350,22 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    // CrearCliente crea una nuevo cliente
+    // InsertCustomer crea una nuevo cliente
     // según las variables:
-    // &CliNom
-    // &CliDir
-    sub 'CrearCliente'
+    // &CustomerName
+    // &CustomerAddress
+    sub 'InsertCustomer'
       // ...
     endsub
 
     // bien
     /**
-     * CrearCliente crea una nuevo cliente
+     * InsertCustomer crea una nuevo cliente
      * según las variables:
-     * &CliNom
-     * &CliDir
+     * &CustomerName
+     * &CustomerAddress
      */
-    sub 'CrearCliente'
+    sub 'InsertCustomer'
        // ...
     endsub
     ```
@@ -417,37 +375,37 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    &CliNom = "John Doe" // Se asigna el nombre a la variable
+    &CustomerName = "John Doe" // Se asigna el nombre a la variable
 
     // bien
     // Se asigna el nombre a la variable
-    &CliNom = "John Doe"
+    &CustomerName = "John Doe"
 
     // mal
-    sub 'CrearCliente'
+    sub 'InsertCustomer'
        msg( "Creando cliente", status)
        // Se crea el cliente
-       &ClienteBC = new()
-       &ClienteBC.CliNom = "John Doe"
+       &CustomerBC = new()
+       &CustomerBC.CustomerName = "John Doe"
        &ClienteBC.Save()
     endsub
 
     // bien
-    sub 'CrearCliente'
+    sub 'InsertCustomer'
        msg( "Creando cliente", status)
 
        // Se crea el cliente
-       &ClienteBC = new()
-       &ClienteBC.CliNom = "John Doe"
-       &ClienteBC.Save()
+       &CustomerBC = new()
+       &CustomerBC.CustomerName = "John Doe"
+       &CustomerBC.Save()
     endsub
 
     // también está bien
-    sub 'CrearCliente'
+    sub 'InsertCustomer'
        // Se crea el cliente
-       &ClienteBC = new()
-       &ClienteBC.CliNom = "John Doe"
-       &ClienteBC.Save()
+       &CustomerBC = new()
+       &CustomerBC.CustomerName = "John Doe"
+       &CustomerBC.Save()
     endsub
     ```
   <a name="comments--spaces"></a><a name="6.3"></a>
@@ -467,14 +425,14 @@ La presente guía se realizó buscando los siguientes objetivos:
      *Se obtiene el nombre de la empresa
      *para luego desplegarlo
      */
-    &EmpNom = EmpresaNombreGet( &EmpId)
+    &CompanyName = GetCompanyName( &EmpId)
 
     // bien
     /**
      * Se obtiene el nombre de la empresa
      * para luego desplegarlo
      */
-    &EmpNom = EmpresaNombreGet( &EmpId)
+    &CompanyName = GetCompanyName( &EmpId)
     ```
 
   <a name="comments--actionitems"></a><a name="6.4"></a>
@@ -485,7 +443,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // FIXME: Revisar cuando &Divisor es 0
-    &Total = &Dividendo / &Divisor
+    &Total = &Dividend / &Divisor
     ```
 
   <a name="comments--todo"></a><a name="6.6"></a>
@@ -493,7 +451,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // TODO: Implementar la subrutina
-    sub "CrearCliente"
+    sub "InsertCustomer"
     endsub
     ```
 
@@ -508,22 +466,22 @@ La presente guía se realizó buscando los siguientes objetivos:
     ```javascript
     // mal
     For Each
-       Where CliCod = &CliCod
-       Msg( CliNom)
+       Where CustomerId = &CustomerId
+       Msg( CustomerName)
     EndFor
 
     // bien
     for each
-       where CliCod = &CliCod
+       where CustomerId = &CustomerId
 
-       msg( CliNom)
+       msg( CustomerName)
     endfor
 
     // mal
-    &Fecha = YmdToD( 2017, 01, 01)
+    &Date = YmdToD(2017,01,01)
 
     // bien
-    &Fecha = ymdtod( 2017, 01, 01)
+    &Date = ymdtod(2017,01,01)
     ```
 
   <a name="commands--case"></a><a name="7.2"></a>
@@ -531,29 +489,29 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    if &DocTipo = DocumentoTipos.Venta
+    if &DocumentOrderType = OrderType.Sale
        ...
     else
-   	   if &DocTipo = DocumentoTipos.Compra
+   	   if &DocumentOrderType = OrderType.Purchase
           ...
        endif
 	endif
 
     // también mal
     do case
-       case &DocTipo = DocumentoTipos.Venta
+       case &DocumentOrderType = OrderType.Sale
           ...
-       case &DocTipo = DocumentoTipos.Compra
+       case &DocumentOrderType = OrderType.Purchase
           ...
 
 	endcase
 
     // bien
     do case
-       case &DocTipo = DocumentoTipos.Venta
+       case &DocumentOrderType = OrderType.Sale
           ...
 
-       case &DocTipo = DocumentoTipos.Compra
+       case &DocumentOrderType = OrderType.Purchase
           ...
 
        otherwise
@@ -579,15 +537,15 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    for each Documentos
-       if DocTipo = DocumentoTipos.Ventas
+    for each Document
+       if DocumentOrderType = OrderType.Sale
           ...
        endif
     endfor
 
     // bien
     for each
-       where DocTipo = DocumentoTipos.Ventas
+       where DocumentOrderType = OrderType.Sale
        ...
     endfor
     ```
@@ -597,16 +555,16 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    for each Documentos
-       where DocTipo = DocumentoTipos.Ventas
-       where DocFch >= &FchIni or null(&FchIni)
+    for each Document
+       where DocumentOrderType = OrderType.Sale
+       where DocumentDate >= &FromDate or null(&FromDate)
        ...
     endfor
 
     // bien
     for each
-       where DocTipo = DocumentoTipos.Ventas
-       where DocFch >= &FchIni when not &FchIni.IsEmpty()
+       where DocumentOrderType = OrderType.Sale
+       where DocumentDate >= &FromDate when not &FromDate.IsEmpty()
 
        ...
     endfor
@@ -617,16 +575,16 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-	&Name = udp( PNameGet, &Id)
+	&Name = udp( GetName, &Id)
 	
 	// bien
-	&Name = PNameGet( &Id )
+	&Name = GetName(&Id)
 	
 	// mal
-    call( PNameSet, &Id, &Name)
+    call( SetName, &Id, &Name)
 	
 	// bien
-    PNameSet( &Id, &Name)
+    SetName(&Id,&Name)
 	
 	// mal
 	&Num = val( &NumChar)
@@ -645,14 +603,14 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
 	 // mal
-	 parm( in:&CliNom, in:&CliApe, in:&CliTel, in:&CliDir, in:&CliDOB);
+	 parm( in:&CustomerName, in:&CustomerLastName, in:&CustomerPhone, in:&CustomerAddress, in:&CustomerDOB);
 
 	 // bien
-	 parm( in:&sdtCliente);
+	 parm( in:&CustomerSdt);
 
 	 // Ejemplo de un webservice
 	 // mal
-	 parm( in:&Nombre, in:&Edad, in:&EstadoCivil, out:&Id, out:&ErrorId);
+	 parm( in:&Name, in:&Age, in:&DOB, out:&Id, out:&ErrorId);
 
 	 // bien
 	 parm( in:&PersonCreateRequest, out:&PersonCreateResponse);
@@ -668,18 +626,18 @@ La presente guía se realizó buscando los siguientes objetivos:
 
   ```javascript
    // mal
-   sub 'CrearCliente'
+   sub 'InsertCustomer'
       ...
    endsub
 
    Resultado: "+Sub Block"
 
    // bien
-   sub 'CrearCliente' // Crear Cliente
+   sub 'InsertCustomer' // Crear Cliente
       ...
    endsub
 
-   Resultado: "+Sub Block ('Crear Cliente')"
+   Resultado: "+Sub Block ('InsertCustomer')"
   ```
 
 **[Volver al inicio](#tabla-de-contenidos)**
@@ -750,7 +708,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 ## Empresas que utilizan esta guia
 
-  Esta es una lista de las empresas que están utilizando esta guia de desarrollo. Haganos saber si su empresa utiliza esta guía ([info@sincrum.com](mailto:info@sincrum.com)) o un fork de la misma y lo agregaremos.
+  Esta es una lista de las empresas que están utilizando esta guia de desarrollo (o la original de la cual esta es un branch). Haganos saber si su empresa utiliza esta guía ([info@sincrum.com](mailto:info@sincrum.com)) o un fork de la misma y lo agregaremos.
 
 - [**Sincrum**](http://sincrum.com)
 - [**Tangocode**](http://tangocode.com)
@@ -762,12 +720,6 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 **[Volver al inicio](#tabla-de-contenidos)**
 
-## Traducciones
-Esta guia de estilo se encuentra también en los siguientes lenguajes:
-
-  - ![us](https://raw.githubusercontent.com/gosquared/flags/master/flags/flags/shiny/24/United-States.png) [**English**](README_en.md) by [Laura Aguiar](https://uy.linkedin.com/in/laura-aguiar-396aa56)
-
-**[Volver al inicio](#tabla-de-contenidos)**
 
 ## Licencia
 [![Licencia Creative Commons](https://i.creativecommons.org/l/by-sa/4.0/88x31.png)](http://creativecommons.org/licenses/by-sa/4.0/)
