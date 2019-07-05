@@ -1,5 +1,6 @@
 # Sincrum - Guia de estilo para el desarrollo en GeneXus
 por [Daniel Monza](https://uy.linkedin.com/in/daniel-monza-62515112)
+branch mantenido x [Laura Aguiar] para imasdev.
 
 [![Licencia Creative Commons](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
 
