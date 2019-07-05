@@ -1,4 +1,4 @@
-# Sincrum - Guia de estilo para el desarrollo en GeneXus
+# Imasdev - Guia de estilo para el desarrollo en GeneXus
 por [Daniel Monza](https://uy.linkedin.com/in/daniel-monza-62515112)
 branch mantenido x [Laura Aguiar] (https://www.linkedin.com/in/laura-aguiar-zaffaroni/) para [imasdev](http://www.imasdev.com).
 
