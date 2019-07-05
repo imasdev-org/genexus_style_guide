@@ -78,7 +78,7 @@ La presente guía se realizó buscando los siguientes objetivos:
     // mal
     TypeOrder
     OrderTypes
-	DocumentType si tenemos un atributo DocumentType 
+    DocumentType si tenemos un atributo DocumentType 
 
     // bien
     OrderType { Sale, Purchase, etc}   - y el atributo seria DocumentOrderType
