@@ -95,11 +95,11 @@ La presente guía se realizó buscando los siguientes objetivos:
     
 
     // bien
-        InsertCustomer
+	InsertCustomer
 	UpsertCustomer
 	DeleteCustomer
-        GetCustomerName
-        SetCustomerName
+	GetCustomerName
+	SetCustomerName
 	RecalcDiscount
 	DoCheckout
 	```
