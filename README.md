@@ -10,7 +10,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 
   1. Transmitir las mejores prácticas a la hora de desarrollar en GeneXus.
   1. Estandarizar el código escrito. Ya que hay tantas formas de programar como programadores, se intenta simplificar la lectura del código fuente.
-  1. Dibulgar buenas prácticas de codificación y las novedades del lenguaje.
+  1. Divulgar buenas prácticas de codificación y las novedades del lenguaje.
 
 ## Tabla de Contenidos
 
@@ -22,6 +22,7 @@ La presente guía se realizó buscando los siguientes objetivos:
   1. [Comentarios](#comentarios)
   1. [Comandos y funciones](#comandos-y-funciones)
   1. [Parámetros](#parámetros)
+  1. [Subrutinas](#subrutinas)
   1. [Buenas prácticas](#buenas-prácticas)
   1. [Recursos](#recursos)
   1. [Empresas que utilizan esta guia](#empresas-que-utilizan-esta-guia)
@@ -79,8 +80,8 @@ La presente guía se realizó buscando los siguientes objetivos:
     DocTipos
 
     // bien
-    DocumentoTipo {Venta,Compra,etc}
-    DocumentoModo {Credito, Débito}
+    DocumentoTipo { Venta, Compra, etc}
+    DocumentoModo { Credito, Débito}
     ```
 
   <a name="naming-procs"></a><a name="1.5"></a>
@@ -114,7 +115,7 @@ La presente guía se realizó buscando los siguientes objetivos:
     CliFchCre
 
     // mejor
-	ClienteFechaCreado
+    ClienteFechaCreado
 	```
 
   <a name="naming-trns"></a><a name="1.7"></a>
@@ -141,17 +142,17 @@ La presente guía se realizó buscando los siguientes objetivos:
 	 ```javascript
     // mal
     if &DocumentoTipo = DocumentoTipos.Venta
-    msg("Venta")
+    msg( "Venta")
     endif
 
     // mal
     if &DocumentoTipo = DocumentoTipo.Venta
-    		msg("Venta")
+    		msg( "Venta")
     endif
 
     // bien
     if &DocumentoTipo = DocumentoTipo.Venta
-       msg("Venta")
+        msg( "Venta")
     endif
     ```
 
@@ -173,8 +174,9 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     // bien
     for each
-       where DocumentoTipo = DocumentoTipo.Venta
-       ...
+        where DocumentoTipo = DocumentoTipo.Venta
+
+        ...
     endfor
     ```
   <a name="whitespace-newline"></a><a name="2.3"></a>
@@ -251,7 +253,7 @@ La presente guía se realizó buscando los siguientes objetivos:
     if &HttpResponse = HTTPMethod.Get
     ```
 
-  <a name="enums-use"></a><a name="3.1"></a>
+  <a name="enums-use"></a><a name="3.2"></a>
   - [3.2](#enums-datatype) Los dominios enumerados cuyo valor quedará registrado en la base de datos, deberán ser de tipo CHAR.
       > Es para facilitar la lectura de las consultas realizadas directamente a la base de datos por el usuario. Es preferible que se utilice CHAR(2 a 3) para optimizar búsqueda mediante índices pequeños.
 
@@ -263,6 +265,20 @@ La presente guía se realizó buscando los siguientes objetivos:
 	// bien
 	MovimientoCuenta.Credito "CRE"
 	MovimientoCuenta.Debito  "DEB"
+	```
+
+  <a name="enums-default"></a><a name="3.3"></a>
+  - [3.3](#enums-default) Evitar definir dominios enumerados con valores "Empty" (0 ó "").
+      > Luego, por ejemplo, si los queremos desplegar en un combo, no va a funcionar "Empty item".
+
+	```javascript
+	// mal
+	ModoLectura.Normal     ""
+	ModoLectura.Secuencial "S"
+
+	// bien
+	ModoLectura.Normal     "N"
+	ModoLectura.Secuencial "S"
 	```
 
 **[Volver al inicio](#tabla-de-contenidos)**
@@ -279,14 +295,14 @@ La presente guía se realizó buscando los siguientes objetivos:
     // mal
     for each Clientes
        &Cliente.CliNom = CliNom
-       &Clientes.Add( &Cliente.Clone() )
+       &Clientes.Add( &Cliente.Clone())
     endfor
 
     // bien
     for each Clientes
        &Cliente = new()
        &Cliente.CliNom = CliNom
-       &Clientes.Add( &Cliente )
+       &Clientes.Add( &Cliente)
     endfor
     ```
   <a name="sdt-list"></a><a name="4.1"></a>
@@ -335,11 +351,11 @@ La presente guía se realizó buscando los siguientes objetivos:
 	```javascript
 	// mal
 	&Msg = "confirm('¿Está seguro de agregar excepción?')"
-    &LstExc.JSEvent("onclick", &Msg)
+    &LstExc.JSEvent( "onclick", &Msg)
 
 	// bien
-	&Msg = format( !"confirm('%1')", "¿Está seguro de agregar excepción?" )
-    &LstExc.JSEvent("onclick", &Msg)
+	&Msg = format( !"confirm('%1')", "¿Está seguro de agregar excepción?")
+    &LstExc.JSEvent( "onclick", &Msg)
 
 	```
 
@@ -371,7 +387,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 ## Comentarios
 
   <a name="comments--multiline"></a><a name="6.1"></a>
-  - [6.1](#comments--multiline) Utilizar `/** ... */` para comentarios multi-línea.
+  - [6.1](#comments--multiline) Utilizar `/** ... */` para comentarios multi-línea en descripciones de funcionamiento. Se puede seguir utilizando `//` ya qeu Genexus permite auto-comentar con Ctrl-Q | Ctrl-Shift-Q.
 
     ```javascript
     // mal
@@ -408,7 +424,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     // mal
     sub 'CrearCliente'
-       msg( "Creando cliente", status )
+       msg( "Creando cliente", status)
        // Se crea el cliente
        &ClienteBC = new()
        &ClienteBC.CliNom = "John Doe"
@@ -417,7 +433,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     // bien
     sub 'CrearCliente'
-       msg( "Creando cliente", status )
+       msg( "Creando cliente", status)
 
        // Se crea el cliente
        &ClienteBC = new()
@@ -478,7 +494,7 @@ La presente guía se realizó buscando los siguientes objetivos:
     // TODO: Implementar la subrutina
     sub "CrearCliente"
     endsub
-	```
+    ```
 
 **[Volver al inicio](#tabla-de-contenidos)**
 
@@ -492,13 +508,14 @@ La presente guía se realizó buscando los siguientes objetivos:
     // mal
     For Each
        Where CliCod = &CliCod
-       Msg(CliNom)
+       Msg( CliNom)
     EndFor
 
     // bien
     for each
        where CliCod = &CliCod
-       msg(CliNom)
+
+       msg( CliNom)
     endfor
 
     // mal
@@ -589,6 +606,7 @@ La presente guía se realizó buscando los siguientes objetivos:
     for each
        where DocTipo = DocumentoTipos.Ventas
        where DocFch >= &FchIni when not &FchIni.IsEmpty()
+
        ...
     endfor
     ```
@@ -607,10 +625,10 @@ La presente guía se realizó buscando los siguientes objetivos:
     call( PNameSet, &Id, &Name)
 	
 	// bien
-    PNameSet( &Id, &Name )
+    PNameSet( &Id, &Name)
 	
 	// mal
-	&Num = val( &NumChar )
+	&Num = val( &NumChar)
 	
 	// bien
 	&Num = &NumChar.ToNumeric()
@@ -629,7 +647,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 	 parm( in:&CliNom, in:&CliApe, in:&CliTel, in:&CliDir, in:&CliDOB);
 
 	 // bien
-	 parm( in:&sdtCliente );
+	 parm( in:&sdtCliente);
 
 	 // Ejemplo de un webservice
 	 // mal
@@ -641,18 +659,42 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 **[Volver al inicio](#tabla-de-contenidos)**
 
+## Subrutinas
+
+  <a name="subs--title"></a><a name="9.1"></a>
+  - [9.1](#parms--title) Al definir subrutinas agregar el nombre como comentario en la misma línea.
+  > Con esto logramos ver el nombre de las sub-rutinas al momento de colapsar las mismas.
+
+  ```javascript
+   // mal
+   sub 'CrearCliente'
+      ...
+   endsub
+
+   Resultado: "+Sub Block"
+
+   // bien
+   sub 'CrearCliente' // Crear Cliente
+      ...
+   endsub
+
+   Resultado: "+Sub Block ('Crear Cliente')"
+  ```
+
+**[Volver al inicio](#tabla-de-contenidos)**
+
 ## Buenas prácticas
 
-  <a name="bpractices--ver"></a><a name="9.1"></a>
-  - [9.1](#bpractices--ver) Versionar el sistema según xx.yy.zz.
+  <a name="bpractices--ver"></a><a name="10.1"></a>
+  - [10.1](#bpractices--ver) Versionar el sistema según xx.yy.zz.
 
   Donde:
 	- xx: Cambios mayor de versión del sistema. Cambia con una frecuencia no menor a un año y generalmente implica un cambio mayor en el  sistema.
 	- yy: Incorpora cambios en base de datos.
 	- zz: Incorpora solo cambios en los binarios.
 
-  <a name="bpractices--ver"></a><a name="9.2"></a>
-  - [9.2](#bpractices--ver) Disponer de la versión actual de la aplicación dentro de los binarios.
+  <a name="bpractices--ver"></a><a name="10.2"></a>
+  - [10.2](#bpractices--ver) Disponer de la versión actual de la aplicación dentro de los binarios.
 	> Esto permite de forma inequivoca saber en que versión de la aplicación estamos trabajando. La versión se puede guardar también como un parámtetro dentro de la base de datos, para poder obtener la diferencia con la versión de los binarios y así realizar la acción deseada.
 
 	Para lograr esto, se crea un procedimiento que retorna la versión en que estamos trabajando:
@@ -665,23 +707,36 @@ La presente guía se realizó buscando los siguientes objetivos:
 	&Version = !"1.05.06"
 	```
 
-  <a name="bpractices--defpro"></a><a name="9.3"></a>
-  - [9.3](#bpractices--defpro) Propiedades por defecto
+  <a name="bpractices--defpro"></a><a name="10.3"></a>
+  - [10.3](#bpractices--defpro) Propiedades por defecto
 
   Isolation level: Read commited  
   Generate prompt programs: No
 
-  <a name="bpractices--pass"></a><a name="9.4"></a>
-  - [9.4](#bpractices--pass) No mostrar contraseñas en logs e información de debug
+  <a name="bpractices--pass"></a><a name="10.4"></a>
+  - [10.4](#bpractices--pass) No mostrar contraseñas en logs e información de debug
 	> Esto obedece a mejorar la seguridad de los sistemas, evitando que queden credenciales en archivos y consolas con sus potenciales riesgos de seguridad
 
-  <a name="bpractices--sdt"></a><a name="9.5"></a>
-  - [9.5](#bpractices--sdt) Establecer namespaces específicos en SDTs utilizados en webservices
+  <a name="bpractices--sdt"></a><a name="10.5"></a>
+  - [10.5](#bpractices--sdt) Establecer namespaces específicos en SDTs utilizados en webservices
 	> Esto evita que se generen inconvenientes en producción si el environment cambia de namespace por defecto. Esto se define en la propiedad "name space" del SDT.
 
-  <a name="bpractices--grids"></a><a name="9.6"></a>
-  - [9.6](#bpractices--grids) Evitar cargar grillas por defecto
+  <a name="bpractices--grids"></a><a name="10.6"></a>
+  - [10.6](#bpractices--grids) Evitar cargar grillas por defecto
 	> En la mayoría de los casos el usuario va a aplicar algún filtro y al cargar por defecto se desperdician recursos del DBMS.
+
+<a name="bpractices--null"></a><a name="10.7"></a>
+  - [10.7](#bpractices--null) Evaluar si crear atributos nuevos como "null"
+	> Ayuda a no re-crear la tabla ante una Reorg. Especialmente en tablas grandes donde el tiempo de migración de datos puede ser demasiado largo. 
+
+<a name="bpractices--session"></a><a name="10.8"></a>
+  - [10.8](#bpractices--null) Evitar acceder a sesiones (websession) desde procedimientos con lógica de negocios.
+	> El acceso a sesiones debe ser responsabilidad de la interfaz. Al trabajar con sesiones dentro de procedimietos estamos introduciendo lógica de la interfaz en el dominio del problema. Debido a esto, depues podemos tener problemas si deseamos utilizar dichos procedimietnos en ejecuciones por consola batch o win.
+
+<a name="bpractices--business"></a><a name="10.9"></a>
+  - [10.9](#bpractices--business) No mantener lógica del negocio en la interfaz.
+	> Siguiendo con la idea anterior, se debe evitar incoporar lógica de negocios en la interfaz.
+  El caso más claro en web es generar la exportación a excel y reportes en webpanels. Si en lugar de ello, los encapsulamos en procedimientos, eventualmente los podemos generar desde otras interfaces.
 
 ## Recursos
 
@@ -700,6 +755,9 @@ La presente guía se realizó buscando los siguientes objetivos:
 - [**Tangocode**](http://tangocode.com)
 - [**GeneXus**](https://www.genexus.com)
 - [**TributApp**](https://www.tributapp.com)
+- [**I+Dev**](http://www.imasdev.com)
+- [**Big Cheese**](http://bigcheese.com.uy)
+
 
 **[Volver al inicio](#tabla-de-contenidos)**
 
