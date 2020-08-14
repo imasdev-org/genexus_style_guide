@@ -25,12 +25,13 @@ La presente guía se realizó buscando los siguientes objetivos:
   1. [Parámetros](#parámetros)
   1. [Subrutinas](#subrutinas)
   1. [WebPanels / FrontEnd](#webfront)
-  1. [Buenas prácticas](#buenas-prácticas)
-  1. [Recursos](#recursos)
-  1. [Empresas que utilizan esta guia](#empresas-que-utilizan-esta-guia)
-  1. [Traducciones](#traducciones)
-  1. [Licencia](#licencia)
-  1. [Modificaciones al documento](#modificaciones-al-documento)
+  
+  * [Buenas prácticas](#buenas-prácticas)
+  * [Recursos](#recursos)
+  * [Empresas que utilizan esta guia](#empresas-que-utilizan-esta-guia)
+  * [Traducciones](#traducciones)
+  * [Licencia](#licencia)
+  * [Modificaciones al documento](#modificaciones-al-documento)
 
 ## Definición de nombres
 
@@ -646,10 +647,11 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 ## WebPanels / FrontEnd
 <a name="webpanels--title"></a><a name="10.1"></a>
-Para tener una buena performace es importante minimizar el HTML - el tamaño del DOM es uno de los índices que se reportan en el pagespeed de google - . 
-Para esto es importante 
--  evitar el uso de tablas html y en cambio usar tablas responsivas o sections (que se generan como div) 
+Para tener una buena performace es importante minimizar el HTML - el tamaño del DOM es uno de los índices que se reportan en el [pagespeed de google](https://developers.google.com/speed)- . 
+Para esto es importante: 
+-  evitar el uso de tablas html y en cambio usar tablas responsivas o sections (que se generan como <div> en vez de <table>) 
 -  evitar el uso de variables o atributos en pantallas siempre que se pueda sustituir por un textblock
+-  evitar el anidado de webcomponents	
 
 **[Volver al inicio](#tabla-de-contenidos)**
 
