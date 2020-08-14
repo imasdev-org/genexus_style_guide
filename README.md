@@ -24,7 +24,7 @@ La presente guía se realizó buscando los siguientes objetivos:
   1. [Comandos y funciones](#comandos-y-funciones)
   1. [Parámetros](#parámetros)
   1. [Subrutinas](#subrutinas)
-  1. [WebPanels / FrontEnd](#webfront)
+  1. [WebPanels en FrontEnd](#webfront)
   
   * [Buenas prácticas](#buenas-prácticas)
   * [Recursos](#recursos)
@@ -645,7 +645,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 **[Volver al inicio](#tabla-de-contenidos)**
 
-## WebPanels / FrontEnd
+## WebPanels en FrontEnd
 <a name="webpanels--title"></a><a name="10.1"></a>
 Para tener una buena performace es importante minimizar el HTML - el tamaño del DOM es uno de los índices que se reportan en el [pagespeed de google](https://developers.google.com/speed)- . 
 Para esto es importante: 
@@ -654,6 +654,7 @@ Para esto es importante:
 -  evitar el anidado de webcomponents	
 
 **[Volver al inicio](#tabla-de-contenidos)**
+
 
 ## Buenas prácticas
 
