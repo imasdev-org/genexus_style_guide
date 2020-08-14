@@ -24,7 +24,7 @@ La presente guía se realizó buscando los siguientes objetivos:
   1. [Comandos y funciones](#comandos-y-funciones)
   1. [Parámetros](#parámetros)
   1. [Subrutinas](#subrutinas)
-  1. [WebPanels en FrontEnd](#webfront)
+  1. [WebPanels en FrontEnd](#webpanels-en-frontend)
   
   * [Buenas prácticas](#buenas-prácticas)
   * [Recursos](#recursos)
