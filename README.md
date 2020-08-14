@@ -24,6 +24,7 @@ La presente guía se realizó buscando los siguientes objetivos:
   1. [Comandos y funciones](#comandos-y-funciones)
   1. [Parámetros](#parámetros)
   1. [Subrutinas](#subrutinas)
+  1. [WebPanels / FrontEnd](#webfront)
   1. [Buenas prácticas](#buenas-prácticas)
   1. [Recursos](#recursos)
   1. [Empresas que utilizan esta guia](#empresas-que-utilizan-esta-guia)
@@ -618,6 +619,7 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 **[Volver al inicio](#tabla-de-contenidos)**
 
+
 ## Subrutinas
 
   <a name="subs--title"></a><a name="9.1"></a>
@@ -642,18 +644,27 @@ La presente guía se realizó buscando los siguientes objetivos:
 
 **[Volver al inicio](#tabla-de-contenidos)**
 
+## WebPanels / FrontEnd
+<a name="webpanels--title"></a><a name="10.1"></a>
+Para tener una buena performace es importante minimizar el HTML - el tamaño del DOM es uno de los índices que se reportan en el pagespeed de google - . 
+Para esto es importante 
+-  evitar el uso de tablas html y en cambio usar tablas responsivas o sections (que se generan como div) 
+-  evitar el uso de variables o atributos en pantallas siempre que se pueda sustituir por un textblock
+
+**[Volver al inicio](#tabla-de-contenidos)**
+
 ## Buenas prácticas
 
-  <a name="bpractices--ver"></a><a name="10.1"></a>
-  - [10.1](#bpractices--ver) Versionar el sistema según xx.yy.zz.
+  <a name="bpractices--ver"></a><a name="bp.1"></a>
+  - [bp.1](#bpractices--ver) Versionar el sistema según xx.yy.zz.
 
   Donde:
 	- xx: Cambios mayor de versión del sistema. Cambia con una frecuencia no menor a un año y generalmente implica un cambio mayor en el  sistema.
 	- yy: Incorpora cambios en base de datos.
 	- zz: Incorpora solo cambios en los binarios.
 
-  <a name="bpractices--ver"></a><a name="10.2"></a>
-  - [10.2](#bpractices--ver) Disponer de la versión actual de la aplicación dentro de los binarios.
+  <a name="bpractices--ver"></a><a name="bp.2"></a>
+  - [bp.2](#bpractices--ver) Disponer de la versión actual de la aplicación dentro de los binarios.
 	> Esto permite de forma inequivoca saber en que versión de la aplicación estamos trabajando. La versión se puede guardar también como un parámtetro dentro de la base de datos, para poder obtener la diferencia con la versión de los binarios y así realizar la acción deseada.
 
 	Para lograr esto, se crea un procedimiento que retorna la versión en que estamos trabajando:
@@ -666,34 +677,34 @@ La presente guía se realizó buscando los siguientes objetivos:
 	&Version = !"1.05.06"
 	```
 
-  <a name="bpractices--defpro"></a><a name="10.3"></a>
-  - [10.3](#bpractices--defpro) Propiedades por defecto
+  <a name="bpractices--defpro"></a><a name="bp.3"></a>
+  - [bp.3](#bpractices--defpro) Propiedades por defecto
 
   Isolation level: Read commited  
   Generate prompt programs: No
 
-  <a name="bpractices--pass"></a><a name="10.4"></a>
-  - [10.4](#bpractices--pass) No mostrar contraseñas en logs e información de debug
+  <a name="bpractices--pass"></a><a name="bp.4"></a>
+  - [bp.4](#bpractices--pass) No mostrar contraseñas en logs e información de debug
 	> Esto obedece a mejorar la seguridad de los sistemas, evitando que queden credenciales en archivos y consolas con sus potenciales riesgos de seguridad
 
-  <a name="bpractices--sdt"></a><a name="10.5"></a>
-  - [10.5](#bpractices--sdt) Establecer namespaces específicos en SDTs utilizados en webservices
+  <a name="bpractices--sdt"></a><a name="bp.5"></a>
+  - [bp.5](#bpractices--sdt) Establecer namespaces específicos en SDTs utilizados en webservices
 	> Esto evita que se generen inconvenientes en producción si el environment cambia de namespace por defecto. Esto se define en la propiedad "name space" del SDT.
 
-  <a name="bpractices--grids"></a><a name="10.6"></a>
-  - [10.6](#bpractices--grids) Evitar cargar grillas por defecto
+  <a name="bpractices--grids"></a><a name="bp.6"></a>
+  - [bp.6](#bpractices--grids) Evitar cargar grillas por defecto
 	> En la mayoría de los casos el usuario va a aplicar algún filtro y al cargar por defecto se desperdician recursos del DBMS.
 
-<a name="bpractices--null"></a><a name="10.7"></a>
-  - [10.7](#bpractices--null) Evaluar si crear atributos nuevos como "null"
+<a name="bpractices--null"></a><a name="bp.7"></a>
+  - [bp.7](#bpractices--null) Evaluar si crear atributos nuevos como "null"
 	> Ayuda a no re-crear la tabla ante una Reorg. Especialmente en tablas grandes donde el tiempo de migración de datos puede ser demasiado largo. 
 
-<a name="bpractices--session"></a><a name="10.8"></a>
-  - [10.8](#bpractices--null) Evitar acceder a sesiones (websession) desde procedimientos con lógica de negocios.
+<a name="bpractices--session"></a><a name="bp.8"></a>
+  - [bp.8](#bpractices--null) Evitar acceder a sesiones (websession) desde procedimientos con lógica de negocios.
 	> El acceso a sesiones debe ser responsabilidad de la interfaz. Al trabajar con sesiones dentro de procedimietos estamos introduciendo lógica de la interfaz en el dominio del problema. Debido a esto, depues podemos tener problemas si deseamos utilizar dichos procedimietnos en ejecuciones por consola batch o win.
 
-<a name="bpractices--business"></a><a name="10.9"></a>
-  - [10.9](#bpractices--business) No mantener lógica del negocio en la interfaz.
+<a name="bpractices--business"></a><a name="bp.9"></a>
+  - [bp.9](#bpractices--business) No mantener lógica del negocio en la interfaz.
 	> Siguiendo con la idea anterior, se debe evitar incoporar lógica de negocios en la interfaz.
   El caso más claro en web es generar la exportación a excel y reportes en webpanels. Si en lugar de ello, los encapsulamos en procedimientos, eventualmente los podemos generar desde otras interfaces.
 
