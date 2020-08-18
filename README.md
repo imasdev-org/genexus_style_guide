@@ -711,6 +711,10 @@ Para esto es importante:
 	> Siguiendo con la idea anterior, se debe evitar incoporar lógica de negocios en la interfaz.
   El caso más claro en web es generar la exportación a excel y reportes en webpanels. Si en lugar de ello, los encapsulamos en procedimientos, eventualmente los podemos generar desde otras interfaces.
 
+<a name="bpractices--warnings"></a><a name="bp.10"></a>
+  - [bp.10](#bpractices--warnings) Manejar todos los warnings como errores .
+	> Dejar la propiedad 'Disabled Warnings' como viene por defecto (spc0096 spc0107 spc0142) y poner todos los demas codigos en 'Warnings Treated as Errors' de forma de obligarse a levantar todos los warnings. Cuando un warning 'se acepta' en un objeto particular, se agrega en la lista de 'Disabled Warnings' del objeto.
+  
 ## Recursos
 
   - [GeneXus Wiki](http://wiki.genexus.com/) - GeneXus
