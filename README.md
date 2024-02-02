@@ -1,6 +1,6 @@
 # Imasdev - Guia de estilo para el desarrollo en GeneXus
 por [Daniel Monza](https://uy.linkedin.com/in/daniel-monza-62515112)
-branch mantenido por [Laura Aguiar](https://www.linkedin.com/in/laura-aguiar-zaffaroni/) para [imasdev](http://www.imasdev.com).
+branch mantenido por [imasdev](http://www.imasdev.com).
 
 [![Licencia Creative Commons](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
 
