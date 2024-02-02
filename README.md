@@ -294,7 +294,7 @@ La presente guía se realizó buscando los siguientes objetivos:
     &Msg = "El cliente Nro." + &CustomerId.ToString() + " se llama " + &CustomerName
 
     // bien
-    &Msg = format( "El cliente Nro. %1 se llama %2", &CustomerId.ToString().Trim(), &CustomerName.Trim())
+    &Msg = format( "El cliente Nro. %1 se llama %2", &CustomerId, &CustomerName.Trim())
     ```
 
 	Esto soluciona la traducción según contexto. Por ejemplo,
