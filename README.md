@@ -346,9 +346,10 @@ La presente guía se realizó buscando los siguientes objetivos:
 **[Volver al inicio](#tabla-de-contenidos)**
 
 ## Comentarios
+No hacer comentarios que digan lo que hace el código, el código debe ser suficientemente claro para no necesitar eso.  El comentario cuando está debe indicar por qué se hace de esa forma y qué se quiere lograr
 
   <a name="comments--multiline"></a><a name="6.1"></a>
-  - [6.1](#comments--multiline) Utilizar `/** ... */` para comentarios multi-línea en descripciones de funcionamiento. Se puede seguir utilizando `//` ya qeu Genexus permite auto-comentar con Ctrl-Q | Ctrl-Shift-Q.
+  - [6.1](#comments--multiline) Utilizar `/** ... */` para comentarios multi-línea en descripciones de funcionamiento. Se puede seguir utilizando `//` ya que Genexus permite auto-comentar con Ctrl-Q | Ctrl-Shift-Q.
 
     ```javascript
     // mal
@@ -373,41 +374,44 @@ La presente guía se realizó buscando los siguientes objetivos:
     ```
 
   <a name="comments--singleline"></a><a name="6.2"></a>
-  - [6.2](#comments--singleline) Utilizar `//` para comentarios de una sola línea. Estos comentarios deben estar una línea antes del sujeto a comentar. Dejar una línea en blanco antes del comentarios a no ser que seal la pimer línea del bloque.
+  - [6.2](#comments--singleline) Utilizar `//` para comentarios de una sola línea. Estos comentarios deben estar una línea antes del sujeto a comentar. Dejar una línea en blanco antes del comentarios a no ser que sel la primer línea del bloque. 
 
     ```javascript
     // mal
-    &CustomerName = "John Doe" // Se asigna el nombre a la variable
+    &sdt.sort(“sku”)  // Ordeno por SKU
 
     // bien
-    // Se asigna el nombre a la variable
-    &CustomerName = "John Doe"
+    // Se ordena por sku para asegurar que siempre se recorra de la misma forma ya que el servicio no siempre devuelve los items en el mismo orden
+    &sdt.sort(“sku”)
 
     // mal
-    sub 'InsertCustomer'
-       msg( "Creando cliente", status)
-       // Se crea el cliente
-       &CustomerBC = new()
-       &CustomerBC.CustomerName = "John Doe"
-       &ClienteBC.Save()
+    sub 'ProcessItems'
+        &sdt = GetItems()
+        // Se ordena por sku para asegurar que siempre se recorra de la misma forma ya que el servicio no siempre devuelve los items en el mismo orden
+        &sdt.sort(“sku”)
+        for &item in &sdt
+        ...
+        endfor
     endsub
 
     // bien
-    sub 'InsertCustomer'
-       msg( "Creando cliente", status)
-
-       // Se crea el cliente
-       &CustomerBC = new()
-       &CustomerBC.CustomerName = "John Doe"
-       &CustomerBC.Save()
+    sub 'ProcessItems'
+        &sdt = GetItems()
+        
+        // Se ordena por sku para asegurar que siempre se recorra de la misma forma ya que el servicio no siempre devuelve los items en el mismo orden
+        &sdt.sort(“sku”)
+        for &item in &sdt
+        ...
+        endfor
     endsub
 
     // también está bien
-    sub 'InsertCustomer'
-       // Se crea el cliente
-       &CustomerBC = new()
-       &CustomerBC.CustomerName = "John Doe"
-       &CustomerBC.Save()
+    sub 'ProcessItems'
+        // Se ordena por sku para asegurar que siempre se recorra de la misma forma ya que el servicio no siempre devuelve los items en el mismo orden
+        &sdt.sort(“sku”)
+        for &item in &sdt
+        ...
+        endfor
     endsub
     ```
   <a name="comments--spaces"></a><a name="6.3"></a>
@@ -415,26 +419,35 @@ La presente guía se realizó buscando los siguientes objetivos:
 
     ```javascript
     // mal
-    //Está activo
-    &IsActive = true
+    //esto fuerza que &pepe sea tomado como imput del evento refresh en SD 
+    if 1=2
+        &pepe = &pepe
+    endif
 
     // bien
-    // Está activo
-    &IsActive = true
+    // esto fuerza que &pepe sea tomado como imput del evento refresh en SD 
+    if 1=2
+        &pepe = &pepe
+    endif
 
     // mal
     /**
-     *Se obtiene el nombre de la empresa
-     *para luego desplegarlo
-     */
-    &CompanyName = GetCompanyName( &EmpId)
+     *esto fuerza que &pepe sea tomado como input ...
+     * del evento refresh en SD
+    */
+    if 1=2
+        &pepe = &pepe
+    endif
 
-    // bien
+
+     // bien
     /**
-     * Se obtiene el nombre de la empresa
-     * para luego desplegarlo
-     */
-    &CompanyName = GetCompanyName( &EmpId)
+     * Esto fuerza que &pepe sea tomado como input ...
+     * del evento refresh en SD
+    */
+    if 1=2
+        &pepe = &pepe
+    endif
     ```
 
   <a name="comments--actionitems"></a><a name="6.4"></a>
